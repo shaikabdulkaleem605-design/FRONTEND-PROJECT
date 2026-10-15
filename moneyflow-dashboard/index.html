@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoneyFlow — Finance Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <a href="#" class="logo"><span class="logo-mark">S</span><span class="logo-name">MoneyFlow</span></a>
+      <button class="collapse" aria-label="Toggle sidebar">»</button>
+      <nav>
+        <a class="nav-item active" href="#dashboard"><span>⌂</span><b>Dashboard</b></a>
+        <a class="nav-item" href="#transactions"><span>▣</span><b>Transactions</b></a>
+        <a class="nav-item" href="#transactions"><span>▤</span><b>Reports</b></a>
+        <a class="nav-item" href="#add-transaction"><span>＋</span><b>Add transaction</b></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mini-profile"><div class="avatar">Y</div><div><strong>Your account</strong><small>Personal workspace</small></div></div>
+        <button class="theme-toggle" id="theme-toggle">☾ <span>Toggle dark mode</span></button>
+      </div>
+    </aside>
+
+    <main class="main" id="dashboard">
+      <header class="topbar">
+        <div class="search"><span>⌕</span><input id="search" type="search" placeholder="Search transactions..." aria-label="Search transactions"></div>
+        <div class="top-actions"><button class="add-btn" id="jump-add">＋ Add money</button><button class="icon-btn" aria-label="Notifications">♧<i></i></button><div class="avatar">Y</div></div>
+      </header>
+
+      <section class="welcome">
+        <div><p class="eyebrow">YOUR FINANCIAL OVERVIEW</p><h1>Good day! <span>✦</span></h1><p class="muted">Here's what's happening with your money.</p></div>
+        <div class="date-chip" id="today"></div>
+      </section>
+
+      <section class="summary-grid">
+        <article class="summary-card"><div class="card-heading">Total income <span class="summary-icon income-icon">↗</span></div><div class="amount" id="income-total">₹0</div><div class="trend positive">↗ <span>Money received</span></div></article>
+        <article class="summary-card"><div class="card-heading">Total expenses <span class="summary-icon expense-icon">↘</span></div><div class="amount" id="expense-total">₹0</div><div class="trend negative">↘ <span>Money spent</span></div></article>
+        <article class="summary-card"><div class="card-heading">Available balance <span class="summary-icon balance-icon">₹</span></div><div class="amount" id="balance-total">₹0</div><div class="trend positive">✓ <span>Income minus expenses</span></div></article>
+      </section>
+
+      <section class="charts-grid">
+        <article class="panel chart-panel">
+          <div class="panel-heading"><div><h2>Cash flow</h2><p class="muted">Income vs expenses by month</p></div><span class="legend"><i class="blue-dot"></i> Income <i class="orange-dot"></i> Expenses</span></div>
+          <div class="chart-wrap"><canvas id="cashflow-chart" aria-label="Income and expense chart"></canvas></div>
+        </article>
+        <article class="panel chart-panel">
+          <div class="panel-heading"><div><h2>Expense breakdown</h2><p class="muted">Where your money goes</p></div></div>
+          <div class="donut-wrap"><canvas id="category-chart" aria-label="Expense categories chart"></canvas></div>
+          <div class="chart-legend" id="category-legend"></div>
+        </article>
+      </section>
+
+      <section class="panel transactions-panel" id="transactions">
+        <div class="panel-heading transactions-heading"><div><h2>Recent transactions</h2><p class="muted">Review your latest activity</p></div><select id="type-filter" aria-label="Filter transaction type"><option value="all">All transactions</option><option value="income">Income</option><option value="expense">Expenses</option></select></div>
+        <div class="table-scroll"><table><thead><tr><th>Transaction</th><th>Category</th><th>Date</th><th>Type</th><th class="right">Amount</th><th></th></tr></thead><tbody id="transaction-rows"></tbody></table></div>
+        <div class="empty" id="empty-state">No transactions found. Add your first transaction below.</div>
+      </section>
+
+      <section class="panel add-panel" id="add-transaction">
+        <div class="panel-heading"><div><h2>Add transaction</h2><p class="muted">Record income or an expense</p></div></div>
+        <form id="transaction-form" class="transaction-form">
+          <label>Transaction name<input id="tx-name" required maxlength="70" placeholder="e.g. Monthly salary"></label>
+          <label>Amount (₹)<input id="tx-amount" type="number" min="1" step="0.01" required placeholder="e.g. 25000"></label>
+          <label>Type<select id="tx-type"><option value="expense">Expense</option><option value="income">Income</option></select></label>
+          <label>Category<select id="tx-category"><option>Food</option><option>Shopping</option><option>Transport</option><option>Bills</option><option>Salary</option><option>Education</option><option>Other</option></select></label>
+          <label>Date<input id="tx-date" type="date" required></label>
+          <button class="submit-btn" type="submit">＋ Save transaction</button>
+          <p id="form-message" role="status"></p>
+        </form>
+      </section>
+      <footer>MoneyFlow · Personal finance dashboard built with HTML, CSS and JavaScript</footer>
+    </main>
+  </div>
+</body>
+</html>
